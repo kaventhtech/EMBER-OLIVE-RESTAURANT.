@@ -1,1 +1,462 @@
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EMBER & OLIVE | Fine Dining</title>
+<meta name="description" content="Experience exceptional dining at Ember & Olive. Discover fine food, warm hospitality and unforgettable moments.">
+
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+:root {
+  --dark: #171a17;
+  --cream: #f5f1e9;
+  --gold: #c5a46d;
+  --muted: #a9aaa2;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  background: var(--cream);
+  color: var(--dark);
+  font-family: 'DM Sans', sans-serif;
+}
+a { color: inherit; text-decoration: none; }
+button, input, select, textarea { font: inherit; }
+
+nav {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 25px 8%;
+  color: white;
+  border-bottom: 1px solid #ffffff30;
+}
+.logo {
+  font-family: 'Playfair Display', serif;
+  font-size: 25px;
+  letter-spacing: 2px;
+}
+.logo span { color: var(--gold); }
+.nav-links {
+  display: flex;
+  gap: 32px;
+  align-items: center;
+  font-size: 13px;
+}
+.nav-links a:hover { color: var(--gold); }
+.nav-button {
+  border: 1px solid var(--gold);
+  padding: 12px 19px;
+  color: white;
+}
+.menu-toggle {
+  display: none;
+  color: white;
+  border: 0;
+  background: none;
+  font-size: 28px;
+  cursor: pointer;
+}
+
+.hero {
+  min-height: 720px;
+  height: 100vh;
+  max-height: 900px;
+  display: flex;
+  align-items: center;
+  padding: 140px 10% 80px;
+  color: white;
+  background:
+  linear-gradient(90deg, #101511e8 0%, #1015118a 55%, #10151125 100%),
+  url('https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=2000&q=85') center/cover;
+}
+.hero-content { max-width: 650px; }
+.eyebrow {
+  color: var(--gold);
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  font-size: 11px;
+  font-weight: 700;
+  margin-bottom: 25px;
+}
+h1, h2, h3 {
+  font-family: 'Playfair Display', serif;
+  font-weight: 500;
+}
+h1 {
+  font-size: clamp(48px, 7vw, 88px);
+  line-height: 1.08;
+  margin-bottom: 25px;
+}
+.hero p {
+  color: #e1e0d8;
+  line-height: 1.9;
+  max-width: 480px;
+  font-size: 15px;
+}
+.gold-button {
+  display: inline-block;
+  background: var(--gold);
+  color: #171a17;
+  padding: 16px 27px;
+  margin-top: 32px;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  border: 1px solid var(--gold);
+  cursor: pointer;
+}
+.gold-button:hover {
+  background: transparent;
+  color: var(--gold);
+}
+section { padding: 100px 9%; }
+.section-heading { text-align: center; margin-bottom: 55px; }
+.section-heading h2 {
+  font-size: clamp(35px, 5vw, 53px);
+  margin-bottom: 15px;
+}
+.section-heading p { color: #77796f; font-size: 14px; }
+
+.about {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 70px;
+  align-items: center;
+}
+.about-image {
+  height: 500px;
+  width: 100%;
+  object-fit: cover;
+}
+.about-text h2 {
+  font-size: clamp(35px, 5vw, 52px);
+  line-height: 1.2;
+  margin-bottom: 25px;
+}
+.about-text p {
+  color: #686b63;
+  line-height: 2;
+  font-size: 14px;
+  margin-bottom: 15px;
+}
+
+.menu-section { background: #eae5db; }
+.menu-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 25px;
+}
+.food-card {
+  background: var(--cream);
+  overflow: hidden;
+}
+.food-card img {
+  width: 100%;
+  height: 240px;
+  object-fit: cover;
+  transition: transform .5s;
+}
+.food-card:hover img { transform: scale(1.05); }
+.food-info { padding: 24px; }
+.food-info h3 { font-size: 23px; margin-bottom: 10px; }
+.food-info p {
+  color: #77796f;
+  font-size: 13px;
+  line-height: 1.7;
+}
+.food-price {
+  display: block;
+  color: #967342;
+  margin-top: 17px;
+  font-weight: 700;
+}
+
+.experience {
+  background:
+  linear-gradient(#111711c9, #111711c9),
+  url('https://images.unsplash.com/photo-1414235077428-338989a2e8c0?auto=format&fit=crop&w=1800&q=85') center/cover;
+  text-align: center;
+  color: white;
+  padding: 120px 10%;
+}
+.experience h2 {
+  font-size: clamp(38px, 6vw, 65px);
+  max-width: 750px;
+  margin: auto;
+  line-height: 1.2;
+}
+.experience p {
+  color: #d6d4ca;
+  margin-top: 22px;
+  line-height: 1.8;
+}
+
+.reservation {
+  background: var(--dark);
+  color: white;
+}
+.reservation .section-heading p { color: #b6b7af; }
+.reservation-form {
+  max-width: 750px;
+  margin: auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+.reservation-form input,
+.reservation-form select,
+.reservation-form textarea {
+  width: 100%;
+  padding: 17px;
+  background: #252b25;
+  color: white;
+  border: 1px solid #41483f;
+  outline: none;
+}
+.reservation-form textarea { grid-column: 1 / -1; min-height: 100px; }
+.reservation-form button { grid-column: 1 / -1; width: 100%; }
+
+footer {
+  background: #101310;
+  color: white;
+  padding: 60px 9% 25px;
+  text-align: center;
+}
+footer .logo { margin-bottom: 20px; }
+footer p {
+  color: #a5a89f;
+  font-size: 13px;
+  line-height: 2;
+}
+.footer-links {
+  display: flex;
+  justify-content: center;
+  gap: 25px;
+  flex-wrap: wrap;
+  margin: 25px 0;
+  font-size: 13px;
+}
+.copyright {
+  border-top: 1px solid #343a33;
+  padding-top: 22px;
+  margin-top: 35px;
+}
+
+@media(max-width: 800px) {
+  nav { padding: 20px 6%; }
+  .menu-toggle { display: block; }
+  .nav-links {
+    display: none;
+    position: absolute;
+    top: 75px;
+    left: 0;
+    width: 100%;
+    background: #171a17;
+    flex-direction: column;
+    padding: 30px;
+    gap: 25px;
+  }
+  .nav-links.active { display: flex; }
+  .hero { min-height: 690px; }
+  section { padding: 75px 7%; }
+  .about { grid-template-columns: 1fr; gap: 35px; }
+  .about-image { height: 350px; }
+  .menu-grid { grid-template-columns: 1fr 1fr; }
+}
+@media(max-width: 520px) {
+  .logo { font-size: 21px; }
+  .hero { min-height: 650px; padding-left: 7%; padding-right: 7%; }
+  .menu-grid { grid-template-columns: 1fr; }
+  .food-card img { height: 260px; }
+  .reservation-form { grid-template-columns: 1fr; }
+  .reservation-form textarea,
+  .reservation-form button { grid-column: auto; }
+}
+</style>
+</head>
+
+<body>
+
+<nav>
+  <a class="logo" href="#">EMBER <span>&</span> OLIVE</a>
+  <button class="menu-toggle" onclick="toggleMenu()" aria-label="Toggle menu">☰</button>
+  <div class="nav-links" id="navLinks">
+    <a href="#home" onclick="closeMenu()">HOME</a>
+    <a href="#about" onclick="closeMenu()">OUR STORY</a>
+    <a href="#menu" onclick="closeMenu()">MENU</a>
+    <a href="#contact" onclick="closeMenu()">CONTACT</a>
+    <a href="#reservation" class="nav-button" onclick="closeMenu()">RESERVE A TABLE</a>
+  </div>
+</nav>
+
+<header class="hero" id="home">
+  <div class="hero-content">
+    <div class="eyebrow">An exceptional dining experience</div>
+    <h1>Where Every<br>Meal Becomes<br>A Memory.</h1>
+    <p>
+      Discover the art of fine dining. Beautifully prepared dishes,
+      carefully selected ingredients and an atmosphere worth remembering.
+    </p>
+    <a href="#menu" class="gold-button">EXPLORE OUR MENU</a>
+  </div>
+</header>
+
+<section class="about" id="about">
+  <img class="about-image"
+  src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?auto=format&fit=crop&w=1000&q=85"
+  alt="Elegant restaurant dining table">
+  <div class="about-text">
+    <div class="eyebrow">Our philosophy</div>
+    <h2>Good Food.<br>Beautiful Moments.</h2>
+    <p>
+      At Ember & Olive, dining is more than simply enjoying a meal.
+      It is about bringing people together through exceptional food,
+      genuine hospitality and unforgettable experiences.
+    </p>
+    <p>
+      Our kitchen celebrates creativity, quality ingredients and
+      attention to every detail. Every plate tells a story.
+    </p>
+    <a href="#reservation" class="gold-button">JOIN US FOR DINNER</a>
+  </div>
+</section>
+
+<section class="menu-section" id="menu">
+  <div class="section-heading">
+    <div class="eyebrow">A taste of excellence</div>
+    <h2>Our Signature Menu</h2>
+    <p>Thoughtfully prepared dishes for memorable occasions.</p>
+  </div>
+
+  <div class="menu-grid">
+    <article class="food-card">
+      <img src="https://images.unsplash.com/photo-1546833999-b9f581a1996d?auto=format&fit=crop&w=900&q=85" alt="Grilled steak">
+      <div class="food-info">
+        <h3>Grilled Steak</h3>
+        <p>Premium grilled steak with seasonal vegetables and house sauce.</p>
+        <span class="food-price">₦18,500</span>
+      </div>
+    </article>
+
+    <article class="food-card">
+      <img src="https://images.unsplash.com/photo-1473093295043-cdd812d0e601?auto=format&fit=crop&w=900&q=85" alt="Italian pasta">
+      <div class="food-info">
+        <h3>Garden Pasta</h3>
+        <p>Fresh pasta with herbs, rich sauce and carefully selected ingredients.</p>
+        <span class="food-price">₦12,000</span>
+      </div>
+    </article>
+
+    <article class="food-card">
+      <img src="https://images.unsplash.com/photo-1547592180-85f173990554?auto=format&fit=crop&w=900&q=85" alt="Fresh salad">
+      <div class="food-info">
+        <h3>Fresh Garden Bowl</h3>
+        <p>A refreshing combination of seasonal greens and house dressing.</p>
+        <span class="food-price">₦9,500</span>
+      </div>
+    </article>
+
+    <article class="food-card">
+      <img src="https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?auto=format&fit=crop&w=900&q=85" alt="Fresh pizza">
+      <div class="food-info">
+        <h3>Signature Pizza</h3>
+        <p>Freshly baked with a delicious blend of cheese and toppings.</p>
+        <span class="food-price">₦14,000</span>
+      </div>
+    </article>
+
+    <article class="food-card">
+      <img src="https://images.unsplash.com/photo-1551024506-0bccd828d307?auto=format&fit=crop&w=900&q=85" alt="Dessert">
+      <div class="food-info">
+        <h3>Sweet Indulgence</h3>
+        <p>A delicate dessert created to finish your dining experience.</p>
+        <span class="food-price">₦7,000</span>
+      </div>
+    </article>
+
+    <article class="food-card">
+      <img src="https://images.unsplash.com/photo-1513558161293-cdaf765edfd4?auto=format&fit=crop&w=900&q=85" alt="Fresh drink">
+      <div class="food-info">
+        <h3>Signature Refreshment</h3>
+        <p>A refreshing house drink, carefully prepared and beautifully served.</p>
+        <span class="food-price">₦5,000</span>
+      </div>
+    </article>
+  </div>
+</section>
+
+<section class="experience">
+  <div class="eyebrow">More than a restaurant</div>
+  <h2>Created For The Moments That Matter.</h2>
+  <p>Celebrate life, share a table and make every occasion unforgettable.</p>
+  <a href="#reservation" class="gold-button">PLAN YOUR VISIT</a>
+</section>
+
+<section class="reservation" id="reservation">
+  <div class="section-heading">
+    <div class="eyebrow">Your table awaits</div>
+    <h2>Make A Reservation</h2>
+    <p>Send us your preferred date and time to request a table.</p>
+  </div>
+
+  <form class="reservation-form" id="bookingForm">
+    <input type="text" placeholder="Your full name" required>
+    <input type="email" placeholder="Email address" required>
+    <input type="date" required>
+    <select required>
+      <option value="">Number of guests</option>
+      <option>1 Guest</option>
+      <option>2 Guests</option>
+      <option>3 Guests</option>
+      <option>4 Guests</option>
+      <option>5+ Guests</option>
+    </select>
+    <textarea placeholder="Special requests (optional)"></textarea>
+    <button class="gold-button" type="submit">REQUEST RESERVATION</button>
+  </form>
+</section>
+
+<footer id="contact">
+  <div class="logo">EMBER <span>&</span> OLIVE</div>
+  <p>An exceptional dining experience.<br>Good food. Beautiful moments.</p>
+  <div class="footer-links">
+    <a href="#home">Home</a>
+    <a href="#about">Our Story</a>
+    <a href="#menu">Menu</a>
+    <a href="#reservation">Reservations</a>
+  </div>
+  <p>Fictional restaurant concept · Portfolio demonstration</p>
+  <div class="copyright">
+    <p>© <span id="year"></span> Ember & Olive. All rights reserved.</p>
+    <p>Website concept by KAVENTH TECHNOLOGIES</p>
+  </div>
+</footer>
+
+<script>
+function toggleMenu() {
+  document.getElementById('navLinks').classList.toggle('active');
+}
+function closeMenu() {
+  document.getElementById('navLinks').classList.remove('active');
+}
+
+document.getElementById('year').textContent = new Date().getFullYear();
+
+document.getElementById('bookingForm').addEventListener('submit', function(e) {
+  e.preventDefault();
+  alert('Thank you! This is a portfolio demo. Connect a booking service to receive real reservations.');
+  this.reset();
+});
+</script>
+
+</body>
+</html>
